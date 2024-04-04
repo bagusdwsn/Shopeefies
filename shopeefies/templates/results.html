@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Analisis</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <h1 class="text-2xl font-bold">Hasil Analisis Kepuasan Pembeli</h1>
+            <a href="/" class="text-sm text-white font-bold bg-orange-500 hover:bg-orange-400 rounded-lg px-4 py-2">Home</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-bold mb-4">Banyak Review:</h2>
+            <p>Sentimen Positif: {{ positive_count }}</p>
+            <p>Sentimen Negatif: {{ negative_count }}</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-bold mb-4">Persentase kepuasan pelanggan:</h2>
+            <p>Persentase Pembeli Puas: {{ positive_percentage }}%</p>
+            <p>Persentase Pembeli Tidak Puas: {{ negative_percentage }}%</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-bold mb-4">Keputusan:</h2>
+            <p>{{ decision }}</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <h2 class="text-xl font-bold mb-4">Prediksi Sentimen Pembeli:</h2>
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr>
+                        <th class="w-3/4 py-2 px-4 border-b border-gray-300 font-bold">Review</th>
+                        <th class="w-1/4 py-2 px-4 border-b border-gray-300 font-bold">Sentimen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td class="w-3/4 py-2 px-4 border-b border-gray-300">{{ result.Text }}</td>
+                        <td class="w-1/4 py-2 px-4 border-b border-gray-300 {% if result.Prediction == 'negatif' %}text-red-600{% endif %}">{{ result.Prediction }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 py-8">
+        <div class="container mx-auto px-4">
+            <p class="text-center text-white text-sm">&copy; 2023 Bagus Dwi Santoso | 112010075. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</body>
+</html>

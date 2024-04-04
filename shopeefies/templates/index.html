@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis App</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-modal {
+            background-color: #fff;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .error-modal {
+            background-color: #fff;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .error-modal button {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="overlay hidden" id="loadingOverlay">
+        <div class="loading-modal">
+            <h2 class="text-xl font-bold mb-4">Membaca Komentar...</h2>
+            <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500 mx-auto"></div>
+        </div>
+    </div>
+
+    <header class="bg-white py-4">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between">
+                <a href="#" class="text-lg font-bold text-gray-800">ShopeeFies</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex items-center justify-center h-screen">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row">
+            <div class="md:w-full">
+                <h1 class="text-4xl font-bold text-gray-800 text-center mb-4">ShopeeFies</h1>
+                <p class="text-lg text-gray-700 text-center mb-8">Analisis kepuasan pelanggan shopee tanpa ribet, cukup taruh tautan produk.</p>
+                <form action="/predict/" method="post" class="max-w-md mx-auto" onsubmit="showLoading()">
+                    {% csrf_token %}
+                    <div class="flex items-center border border-gray-300 rounded-md py-2 px-4">
+                        <input type="text" id="url" name="url" placeholder="Masukkan Link Produk Shopee" required
+                            class="w-full outline-none bg-transparent">
+                        <button type="submit" class="bg-orange-500 hover:bg-orange-400 text-white rounded-md px-6 py-2 ml-2">Analisis</button>
+                    </div>
+                    {% if error_message %}
+                    <p class="text-red-500 mt-2">{{ error_message }}</p>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 py-8">
+        <div class="container mx-auto px-4">
+            <p class="text-center text-white text-sm">&copy; 2023 Bagus Dwi Santoso. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function showLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.remove('hidden');
+        }
+        
+    </script>
+    
+</body>
+</html>
